@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:redis="http://www.springframework.org/schema/redis"
+        xsi:schemaLocation="
+		                    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		                    http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis-1.0.xsd">
+
+    <!--序列化-->
+    <bean id="jdkSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+
+    <bean id="messageDelegateListener" class="rush.io.lab.service.impl.TicketListenMessage"/>
+
+    <bean id="messageListener" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+        <property name="delegate" ref="messageDelegateListener"/>
+        <property name="serializer" ref="jdkSerializer"/>
+    </bean>
+
+    <!--消息监听-->
+    <redis:listener-container>
+        <!--指定消息处理方法，序列化方式及主题名称-->
+        <redis:listener ref="messageListener" method="handleMessage" serializer="jdkSerializer" topic="ticket"/>
+    </redis:listener-container>
+
+</beans>
+
