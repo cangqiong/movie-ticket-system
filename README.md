@@ -5,7 +5,7 @@
 
 Spring MVC + Spring Data JPA + Spring Data Redis + Datanucleus JPA + Mariadb + Spring mail
 
-演示地址：[59.110.153.91](http://59.110.153.91)   测试账号：test 密码：test
+演示地址：已失效   测试账号：test 密码：test
 
 ## 功能介绍
 
